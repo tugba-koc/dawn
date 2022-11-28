@@ -1,0 +1,30 @@
+<section class="Section  {% unless section.settings.image %}Section--spacingNormal{% endunless %}">
+<video class="Image--lazyLoad lazyautosizes" height="240" controls autoplay loop  muted playsinline type="video/webm" src="{{section.settings.link}}"></video> <!--6.22 mb -->
+
+ </section>
+
+ 
+ {% schema %}
+ {
+    "name":"Test Small",
+    "class":"shopify-section--bordered",
+    "settings":[
+{
+          "type":"url",
+          "id":"link",
+          "label":"Link"
+          
+       }
+],
+ 
+    "presets":[
+       {
+          "category":"Text",
+          "name":"Test Small",
+          "settings":{}
+       }
+    ]
+ }
+ {% endschema %}
+ 
+ 

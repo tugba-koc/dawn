@@ -1,0 +1,15 @@
+{{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
+
+ <video width='500px' controls autoplay id="{{section.id}}-video" class="col-video-with-text" muted src='https://cdn.shopify.com/videos/c/o/v/8d9a992d58084b3f95823cbd9819742b.mp4' ></video>
+
+{% schema %}
+{
+  "name": "Video section",
+  "tag": "section",
+  "presets": [
+    {
+      "name": "Video section"
+    }
+  ]
+}
+{% endschema %}
