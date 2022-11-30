@@ -25,7 +25,7 @@
         "button_text": "SHOP NOW",
         "button_link": "shopify:\/\/collections\/kadin-tshirt",
         "button_bg_color": "{{ shop.brand.colors.primary[0].background }}",
-        "button_text_color": "#ffffff",
+        "button_text_color": "{{ shop.brand.colors.primary[0].foreground }}",
         "link_text": "Read More",
         "link": "shopify:\/\/products\/basic-tshirt",
         "link_text_color": "{{ shop.brand.colors.primary[0].background }}"
