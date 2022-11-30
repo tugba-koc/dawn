@@ -1,0 +1,367 @@
+{{ 'digifist.css' | asset_url | stylesheet_tag }}
+
+<section class="{%- if section.settings.padding_top_bottom == true -%} section__w-padding {%- endif -%}" id="digifist-{{ section.id}}">
+  {%- if section.settings.title != blank -%}
+    <h2 class="digifist__title">
+      {{ section.settings.title | escape }}
+    </h2>
+  {%- endif -%}
+  <div class="{%if section.settings.align_img_right != true %}digifist__text-w-img reverse {%else%}digifist__text-w-img{%endif%}">
+    {%- comment -%}
+      Subheading Column
+    {%- endcomment -%}
+    {%- if section.settings.subheading != blank or section.settings.button_link != blank -%}
+      <div class="digifist__text-column digifist__subheading-w-button">
+        {%- if section.settings.subheading != blank -%}
+          <div class="digifist__subheading">
+            {{ section.settings.subheading }}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.button_link != blank -%}
+          <a class="digifist__button-link digifist__link-text" href="{{section.settings.button_link}}">
+            {{ section.settings.button_text }}
+            <svg width="7" height="13" viewBox="0 0 7 13" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M0.146447 0.146447C0.341709 -0.0488155 0.658291 -0.0488155 0.853553 0.146447L6.85355 6.14645C7.04882 6.34171 7.04882 6.65829 6.85355 6.85355L0.853553 12.8536C0.658291 13.0488 0.341709 13.0488 0.146447 12.8536C-0.0488155 12.6583 -0.0488155 12.3417 0.146447 12.1464L5.79289 6.5L0.146447 0.853553C-0.0488155 0.658291 -0.0488155 0.341709 0.146447 0.146447Z" fill="white"/>
+            </svg>
+          </a>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+    {%- if section.settings.img != blank or section.settings.img_second != blank -%}
+      <div class="digifist__img-column">
+        {%- comment -%}
+          First Img
+        {%- endcomment -%}
+        {%- if section.settings.img != blank -%}
+          <div class="digifist__img">
+            {%- capture image_size_max -%}
+              {{ section.settings.img_max_width }}x
+            {%- endcapture -%}
+            {%- capture image_size_min -%}
+              {{ section.settings.mobile_img_max_width }}x
+            {%- endcapture -%}
+            <picture>
+              <source media="(max-width: 750px)" srcset="{{ section.settings.img | img_url: image_size_min }}"/>
+              <source media="(min-width: 750px)" srcset="{{ section.settings.img | img_url: image_size_max }}"/>
+              <img class="
+              {%- if section.settings.image_border == 'all' -%} img-all-radius{%- endif -%}
+              {%- if section.settings.image_border == 'oval' -%} img-oval-radius{%- endif -%}
+              {%- if section.settings.image_border == 'top_2' -%} img-top-two-radius{%- endif -%}
+              {%- if section.settings.image_border == 'bottom_2' -%} img-bottom-two-radius{%- endif -%}" src="{{ section.settings.img | img_url: image_size_max }}" alt="{{ section.settings.img.alt | default: shop.name | escape }}"/>
+            </picture>
+            {%- if section.settings.show_product_badge == true -%}
+              {%- assign product = all_products[section.settings.product_select] -%}
+              <a href="{{ product.url }}">
+                <div class="digifist__badge">
+                  <div class="digifist__badge-content">
+                    <p class="title">
+                      {{ product.title | capitalize }}
+                    </p>
+                    <p class="price">
+                      {{ product.price | money  }}
+                    </p>
+                  </div>
+                  <img class="digifist__badge-img" src="{{ product.featured_image | img_url: '72x72' }}">
+                </div>
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+        {%- comment -%}
+          Second Img
+        {%- endcomment -%}
+        {%- if section.settings.img_second != blank -%}
+          <div class="digifist__img-second">
+            {%- capture image_size_max -%}
+              {{ section.settings.img_max_width }}x
+            {%- endcapture -%}
+            {%- capture image_size_min -%}
+              {{ section.settings.mobile_img_max_width }}x
+            {%- endcapture -%}
+            <picture>
+              <source media="(max-width: 750px)" srcset="{{ section.settings.img_second | img_url: image_size_min }}"/>
+              <source media="(min-width: 750px)" srcset="{{ section.settings.img_second | img_url: image_size_max }}"/>
+              <img class="
+              {%- if section.settings.image_border_second == 'all' -%} img-all-radius{%- endif -%}
+              {%- if section.settings.image_border_second == 'oval' -%} img-oval-radius{%- endif -%}
+              {%- if section.settings.image_border_second == 'top_2' -%} img-top-two-radius{%- endif -%}
+              {%- if section.settings.image_border_second == 'bottom_2' -%} img-bottom-two-radius{%- endif -%}" src="{{ section.settings.img_second | img_url: image_size_max }}" alt="{{ section.settings.img_second.alt | default: shop.name | escape }}"/>
+            </picture>
+            {%- if section.settings.show_product_badge_second == true -%}
+              {%- assign product = all_products[section.settings.product_select_second] -%}
+              <a href="{{ product.url }}">
+                <div class="digifist__badge">
+                  <div class="digifist__badge-content">
+                    <p class="title">
+                      {{ product.title | capitalize }}
+                    </p>
+                    <p class="price">
+                      {{ product.price }}$
+                    </p>
+                  </div>
+                  <img class="digifist__badge-img" src="{{ product.featured_image | img_url: '72x72' }}">
+                </div>
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%endif%}
+    {%- comment -%}
+      Content Column
+    {%- endcomment -%}
+    {%- if section.settings.content != blank or section.settings.img != blank -%}
+      <div class="digifist__text-column digifist__text-w-link">
+        {%- if section.settings.content != blank -%}
+          <div class="digifist__text-content">
+            {{ section.settings.content }}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.link != blank -%}
+          <a class="digifist__link digifist__link-text" href="{{section.settings.link}}">
+            {{ section.settings.link_text }}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+<style>
+  {% if section.settings.padding %}
+    .section__w-padding {
+      padding: {{ section.settings.padding }}px 0;
+    }
+  {% endif %}
+  {% if section.settings.background != blank %}
+    #digifist-{{ section.id}}{
+      background: {{ section.settings.background }};
+    }
+  {% endif %}
+  {% if section.settings.button_bg_color != blank %}
+    .digifist__button-link {
+      background-color: {{ section.settings.button_bg_color }}}
+  {% endif %}
+  {% if section.settings.link_text_color != blank %}
+    .digifist__link {
+      color: {{ section.settings.link_text_color }};
+      border-bottom: 1px solid{{ section.settings.link_text_color }};
+    }
+  {% endif %}
+  {% if section.settings.text_color != blank %}
+    .digifist__subheading {
+      color: {{ section.settings.text_color }};
+    }
+  {% endif %}
+  {% if section.settings.button_text_color != blank %}
+    .digifist__button-link {
+      color: {{ section.settings.button_text_color}}}
+  {% endif %}
+  {% if section.settings.content_color != blank %}
+    .digifist__text-content {
+      color: {{ section.settings.content_color }}}
+  {% endif %}
+  /* desktop and tablet */
+  @media screen and (min-width: 750px) {
+    .digifist__text-w-img {
+        max-width: calc(({{ section.settings.img_max_width }}px * 2) + 7vw);
+        {%- comment -%} max-width: 1440px; {%- endcomment -%}
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Digifist",
+    "class": "shopify-section--bordered",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#000"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Service Offering"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Heading&Subheading color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "checkbox",
+        "id": "padding_top_bottom",
+        "label": "Add Padding Top&Bottom",
+        "default": false
+      }, {
+        "type": "range",
+        "id": "padding",
+        "label": "Padding value (px)",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 30
+      }, {
+        "type": "text",
+        "id": "subheading",
+        "label": "Sub Heading",
+        "default": "subtitle"
+      }, {
+        "type": "checkbox",
+        "id": "align_img_right",
+        "label": "Align first image to right",
+        "default": true
+      }, {
+        "type": "image_picker",
+        "id": "img",
+        "label": "Image",
+        "info": "200 x 60px .png recommended"
+      }, {
+        "type": "checkbox",
+        "id": "show_product_badge",
+        "label": "Show product badge",
+        "default": true
+      }, {
+        "type": "product",
+        "id": "product_select",
+        "label": "Product selector"
+      }, {
+        "type": "select",
+        "id": "image_border",
+        "label": "Image Border",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "oval",
+            "label": "Oval"
+          },
+          {
+            "value": "all",
+            "label": "All sides"
+          },
+          {
+            "value": "top_2",
+            "label": "Top 2 sides"
+          }, {
+            "value": "bottom_2",
+            "label": "Bottom 2 sides"
+          }
+        ],
+        "default": "none"
+      }, {
+        "type": "text",
+        "id": "content",
+        "label": "Content",
+        "default": "Content"
+      }, {
+        "type": "color",
+        "id": "content_color",
+        "label": "Content color",
+        "default": "#ffffff"
+      }, {
+        "type": "image_picker",
+        "id": "img_second",
+        "label": "Image Second",
+        "info": "200 x 60px .png recommended"
+      }, {
+        "type": "checkbox",
+        "id": "show_product_badge_second",
+        "label": "Show product badge",
+        "default": true
+      }, {
+        "type": "product",
+        "id": "product_select_second",
+        "label": "Product selector"
+      }, {
+        "type": "select",
+        "id": "image_border_second",
+        "label": "Image Border",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "oval",
+            "label": "Oval"
+          },
+          {
+            "value": "all",
+            "label": "All sides"
+          },
+          {
+            "value": "top_2",
+            "label": "Top 2 sides"
+          }, {
+            "value": "bottom_2",
+            "label": "Bottom 2 sides"
+          }
+        ],
+        "default": "none"
+      }, {
+        "type": "range",
+        "id": "img_max_width",
+        "min": 50,
+        "max": 700,
+        "step": 10,
+        "unit": "px",
+        "label": "Image width",
+        "default": 370
+      }, {
+        "type": "range",
+        "id": "mobile_img_max_width",
+        "min": 50,
+        "max": 300,
+        "step": 5,
+        "unit": "px",
+        "label": "Mobile image width",
+        "default": 300
+      }, {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button text"
+      }, {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      }, {
+        "type": "color",
+        "id": "button_bg_color",
+        "label": "Button background color",
+        "default": "#000"
+      }, {
+        "type": "color",
+        "id": "button_text_color",
+        "label": "Button text color",
+        "default": "#fff"
+      }, {
+        "type": "text",
+        "id": "link_text",
+        "label": "Link text"
+      }, {
+        "type": "url",
+        "id": "link",
+        "label": "Link"
+      }, {
+        "type": "color",
+        "id": "link_text_color",
+        "label": "Link text color",
+        "default": "#fff"
+      }
+    ],
+    "presets": [
+      {
+        "category": "Text",
+        "name": "Digifist",
+        "settings": {}
+      }
+    ]
+  }
+{% endschema %}
